@@ -60,7 +60,7 @@ namespace WinFormsApp1
 
             if (!priceIsNumeric)
             {
-                MessageBox.Show("Hubo un error en el campo precio.");
+                MessageBox.Show("El precio ingresado es inválido.");
                 return;
             }
 
@@ -80,6 +80,31 @@ namespace WinFormsApp1
             textChangedByCode = false;
         }
 
+        private bool validateFields()
+        {
+            if (string.IsNullOrEmpty(txtCodProd.Text)) {
+                MessageBox.Show("El código de producto es obligatorio.");
+                return false; 
+            }
+            if (string.IsNullOrEmpty(txtDesc.Text)) {
+                MessageBox.Show("La descripción del producto no puede ser vacía.");
+                return false;
+            }
+            if (numQty.Value <= 0) {
+                MessageBox.Show("Debe haber mínimo 1 producto.");
+                return false;
+            }
+
+            decimal currentPrice;
+            bool priceIsNumeric = decimal.TryParse(txtPrecio.Text, out currentPrice);
+            if (!priceIsNumeric || currentPrice <= 0)
+            {
+                MessageBox.Show("El precio del producto es inválido.");
+                return false;
+            }
+            return true;
+        }
+
         private void txtPrecio_TextChanged(object sender, EventArgs e)
         {
             if (textChangedByCode) { return; }
@@ -94,6 +119,7 @@ namespace WinFormsApp1
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (!validateFields()) { return; }
             decimal currentPrice;
             bool priceIsNumeric = decimal.TryParse(txtPrecio.Text, out currentPrice);
             productos.Add(new Producto
