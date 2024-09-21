@@ -208,6 +208,7 @@
             btnNew.TabIndex = 11;
             btnNew.Text = "Nueva Factura";
             btnNew.UseVisualStyleBackColor = true;
+            btnNew.Click += btnNew_Click;
             // 
             // btnSave
             // 
@@ -217,6 +218,7 @@
             btnSave.TabIndex = 12;
             btnSave.Text = "Guardar Factura";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnLoad
             // 

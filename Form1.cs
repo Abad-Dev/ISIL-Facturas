@@ -9,6 +9,7 @@ namespace WinFormsApp1
         public const string DECIMALS = "N2";
         public List<Producto> productos = new List<Producto> { };
         public bool textChangedByCode = false;
+        public bool changesSaved = false;
         public Form1()
         {
             InitializeComponent();
@@ -82,15 +83,18 @@ namespace WinFormsApp1
 
         private bool validateFields()
         {
-            if (string.IsNullOrEmpty(txtCodProd.Text)) {
+            if (string.IsNullOrEmpty(txtCodProd.Text))
+            {
                 MessageBox.Show("El código de producto es obligatorio.");
-                return false; 
+                return false;
             }
-            if (string.IsNullOrEmpty(txtDesc.Text)) {
+            if (string.IsNullOrEmpty(txtDesc.Text))
+            {
                 MessageBox.Show("La descripción del producto no puede ser vacía.");
                 return false;
             }
-            if (numQty.Value <= 0) {
+            if (numQty.Value <= 0)
+            {
                 MessageBox.Show("Debe haber mínimo 1 producto.");
                 return false;
             }
@@ -103,6 +107,18 @@ namespace WinFormsApp1
                 return false;
             }
             return true;
+        }
+        private void ClearScreen()
+        {
+            productos.Clear();
+            EmptyFields();
+            FillGridView();
+        }
+
+        private void SaveChanges()
+        {
+
+            MessageBox.Show("Los cambios fueron guardados en C:/factura.txt");
         }
 
         private void txtPrecio_TextChanged(object sender, EventArgs e)
@@ -143,6 +159,38 @@ namespace WinFormsApp1
             int index = grdProductos.SelectedRows[0].Index;
             productos.RemoveAt(index);
             FillGridView();
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            if (productos.Count == 0) { return; }
+
+            if (changesSaved) { 
+                ClearScreen();
+                changesSaved = false; 
+                return; 
+            }
+
+            DialogResult resultado = MessageBox.Show(
+                "Los cambios se guardarán automáticamente",
+                "Nueva Factura",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Question
+            );
+            if (resultado == DialogResult.OK)
+            {
+                SaveChanges();
+                ClearScreen();
+                changesSaved = false;
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (productos.Count == 0) { return; }
+
+            SaveChanges();
+            changesSaved = true;
         }
     }
 }
