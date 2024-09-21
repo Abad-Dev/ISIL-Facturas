@@ -65,6 +65,7 @@
             grdProductos.ReadOnly = true;
             grdProductos.RowHeadersVisible = false;
             grdProductos.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            grdProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             grdProductos.Size = new Size(503, 150);
             grdProductos.TabIndex = 0;
             // 
@@ -174,6 +175,7 @@
             btnAdd.TabIndex = 12;
             btnAdd.Text = "Agregar";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // lblSubtotal
             // 
@@ -181,9 +183,9 @@
             lblSubtotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblSubtotal.Location = new Point(414, 90);
             lblSubtotal.Name = "lblSubtotal";
-            lblSubtotal.Size = new Size(32, 21);
+            lblSubtotal.Size = new Size(41, 21);
             lblSubtotal.TabIndex = 11;
-            lblSubtotal.Text = "0.0";
+            lblSubtotal.Text = "0.00";
             // 
             // lblTotalView
             // 

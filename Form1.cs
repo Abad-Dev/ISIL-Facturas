@@ -6,8 +6,8 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
-        List<Producto> productos = new List<Producto> { };
-
+        public List<Producto> productos = new List<Producto> { };
+        public bool textChangedByCode = false;
         public Form1()
         {
             InitializeComponent();
@@ -19,7 +19,13 @@ namespace WinFormsApp1
             FillColumnsGrid();
             foreach (var producto in productos)
             {
-                grdProductos.Rows.Add(producto.CodProducto, producto.Descripcion, producto.Cantidad, producto.PrecioUnitario, producto.Cantidad * producto.PrecioUnitario);
+                grdProductos.Rows.Add(
+                    producto.CodProducto, 
+                    producto.Descripcion, 
+                    producto.Cantidad, 
+                    producto.PrecioUnitario, 
+                    (producto.Cantidad * producto.PrecioUnitario).ToString("N2")
+                );
             }
         }
 
@@ -44,17 +50,47 @@ namespace WinFormsApp1
                 return;
             }
 
-            lblSubtotal.Text = (currentQty * currentPrice).ToString();
+            lblSubtotal.Text = (currentQty * currentPrice).ToString("N2");
+        }
+
+        private void EmptyFields()
+        {
+            textChangedByCode = true;
+
+            txtCodProd.Text = string.Empty;
+            txtDesc.Text = string.Empty;
+            numQty.Value = 0;
+            txtPrecio.Text = "0";
+            lblSubtotal.Text = "0.00";
+
+            textChangedByCode = false;
         }
 
         private void txtPrecio_TextChanged(object sender, EventArgs e)
         {
+            if (textChangedByCode) { return; }
             CalculateSubtotal();
         }
 
         private void numQty_ValueChanged(object sender, EventArgs e)
         {
+            if (textChangedByCode) { return; }
             CalculateSubtotal();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            decimal currentPrice;
+            bool priceIsNumeric = decimal.TryParse(txtPrecio.Text, out currentPrice);
+            productos.Add(new Producto
+            {
+                CodProducto = txtCodProd.Text,
+                Descripcion = txtDesc.Text,
+                Cantidad = (int)numQty.Value,
+                PrecioUnitario = (double)currentPrice
+            });
+            EmptyFields();
+            LlenarGridView();
         }
     }
 }

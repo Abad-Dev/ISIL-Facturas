@@ -8,7 +8,7 @@ namespace WinFormsApp1
 {
     public class Producto
     {
-        public int CodProducto { get; set; }
+        public string CodProducto { get; set; }
         public string Descripcion { get; set; }
         public int Cantidad { get; set; }
         public double PrecioUnitario {  get; set; }
