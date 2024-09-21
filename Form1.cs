@@ -12,9 +12,9 @@ namespace WinFormsApp1
         public Form1()
         {
             InitializeComponent();
-            LlenarGridView();
+            FillGridView();
         }
-        private void LlenarGridView()
+        private void FillGridView()
         {
             grdProductos.Columns.Clear();
             FillColumnsGrid();
@@ -28,6 +28,7 @@ namespace WinFormsApp1
                     (producto.Cantidad * producto.PrecioUnitario).ToString(DECIMALS)
                 );
             }
+            btnDelete.Visible = productos.Count > 0;
             CalculateTotal();
         }
 
@@ -103,7 +104,19 @@ namespace WinFormsApp1
                 PrecioUnitario = (double)currentPrice
             });
             EmptyFields();
-            LlenarGridView();
+            FillGridView();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (grdProductos.SelectedRows.Count > 1)
+            {
+                MessageBox.Show("Debe seleccionar solo un producto.");
+                return;
+            }
+            int index = grdProductos.SelectedRows[0].Index;
+            productos.RemoveAt(index);
+            FillGridView();
         }
     }
 }

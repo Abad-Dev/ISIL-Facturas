@@ -48,6 +48,7 @@
             lblPrefixTotal = new Label();
             lblTotal = new Label();
             lblTotalView = new Label();
+            btnDelete = new Button();
             ((System.ComponentModel.ISupportInitialize)grdProductos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numQty).BeginInit();
             grpInsert.SuspendLayout();
@@ -172,9 +173,9 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(43, 156);
+            btnAdd.Location = new Point(43, 150);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(75, 23);
+            btnAdd.Size = new Size(75, 29);
             btnAdd.TabIndex = 12;
             btnAdd.Text = "Agregar";
             btnAdd.UseVisualStyleBackColor = true;
@@ -256,12 +257,24 @@
             lblTotalView.Text = "Total:";
             lblTotalView.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(99, 451);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(118, 30);
+            btnDelete.TabIndex = 17;
+            btnDelete.Text = "Eliminar Producto";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Visible = false;
+            btnDelete.Click += btnDelete_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(719, 554);
+            Controls.Add(btnDelete);
             Controls.Add(lblPrefixTotal);
             Controls.Add(lblTotal);
             Controls.Add(lblTotalView);
@@ -302,5 +315,6 @@
         private Label lblPrefixTotal;
         private Label lblTotal;
         private Label lblTotalView;
+        private Button btnDelete;
     }
 }
