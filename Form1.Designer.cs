@@ -115,6 +115,7 @@
             numQty.Name = "numQty";
             numQty.Size = new Size(120, 23);
             numQty.TabIndex = 7;
+            numQty.ValueChanged += numQty_ValueChanged;
             // 
             // lblPrecio
             // 
@@ -131,6 +132,8 @@
             txtPrecio.Name = "txtPrecio";
             txtPrecio.Size = new Size(120, 23);
             txtPrecio.TabIndex = 9;
+            txtPrecio.Text = "0";
+            txtPrecio.TextChanged += txtPrecio_TextChanged;
             // 
             // grpInsert
             // 
@@ -231,7 +234,6 @@
             Controls.Add(grdProductos);
             Name = "Form1";
             Text = "Manejador Facturas";
-            //Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)grdProductos).EndInit();
             ((System.ComponentModel.ISupportInitialize)numQty).EndInit();
             grpInsert.ResumeLayout(false);
