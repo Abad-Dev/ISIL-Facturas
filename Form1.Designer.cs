@@ -38,13 +38,16 @@
             lblPrecio = new Label();
             txtPrecio = new TextBox();
             grpInsert = new GroupBox();
-            label1 = new Label();
+            lblPrefixSubtotal = new Label();
             btnAdd = new Button();
             lblSubtotal = new Label();
-            lblTotalView = new Label();
+            lblSubtotalView = new Label();
             btnNew = new Button();
             btnSave = new Button();
             btnLoad = new Button();
+            lblPrefixTotal = new Label();
+            lblTotal = new Label();
+            lblTotalView = new Label();
             ((System.ComponentModel.ISupportInitialize)grdProductos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numQty).BeginInit();
             grpInsert.SuspendLayout();
@@ -138,10 +141,10 @@
             // 
             // grpInsert
             // 
-            grpInsert.Controls.Add(label1);
+            grpInsert.Controls.Add(lblPrefixSubtotal);
             grpInsert.Controls.Add(btnAdd);
             grpInsert.Controls.Add(lblSubtotal);
-            grpInsert.Controls.Add(lblTotalView);
+            grpInsert.Controls.Add(lblSubtotalView);
             grpInsert.Controls.Add(lblCodProd);
             grpInsert.Controls.Add(txtPrecio);
             grpInsert.Controls.Add(txtCodProd);
@@ -157,15 +160,15 @@
             grpInsert.TabStop = false;
             grpInsert.Text = "Insertar Producto";
             // 
-            // label1
+            // lblPrefixSubtotal
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Location = new Point(397, 94);
-            label1.Name = "label1";
-            label1.Size = new Size(21, 15);
-            label1.TabIndex = 13;
-            label1.Text = "S/ ";
+            lblPrefixSubtotal.AutoSize = true;
+            lblPrefixSubtotal.BackColor = Color.Transparent;
+            lblPrefixSubtotal.Location = new Point(397, 94);
+            lblPrefixSubtotal.Name = "lblPrefixSubtotal";
+            lblPrefixSubtotal.Size = new Size(21, 15);
+            lblPrefixSubtotal.TabIndex = 13;
+            lblPrefixSubtotal.Text = "S/ ";
             // 
             // btnAdd
             // 
@@ -187,18 +190,18 @@
             lblSubtotal.TabIndex = 11;
             lblSubtotal.Text = "0.00";
             // 
-            // lblTotalView
+            // lblSubtotalView
             // 
-            lblTotalView.AutoSize = true;
-            lblTotalView.Location = new Point(397, 73);
-            lblTotalView.Name = "lblTotalView";
-            lblTotalView.Size = new Size(58, 15);
-            lblTotalView.TabIndex = 10;
-            lblTotalView.Text = "Sub Total:";
+            lblSubtotalView.AutoSize = true;
+            lblSubtotalView.Location = new Point(397, 73);
+            lblSubtotalView.Name = "lblSubtotalView";
+            lblSubtotalView.Size = new Size(58, 15);
+            lblSubtotalView.TabIndex = 10;
+            lblSubtotalView.Text = "Sub Total:";
             // 
             // btnNew
             // 
-            btnNew.Location = new Point(99, 468);
+            btnNew.Location = new Point(99, 491);
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(118, 30);
             btnNew.TabIndex = 11;
@@ -207,7 +210,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(474, 468);
+            btnSave.Location = new Point(474, 491);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(128, 30);
             btnSave.TabIndex = 12;
@@ -223,12 +226,45 @@
             btnLoad.Text = "Cargar Factura";
             btnLoad.UseVisualStyleBackColor = true;
             // 
+            // lblPrefixTotal
+            // 
+            lblPrefixTotal.AutoSize = true;
+            lblPrefixTotal.BackColor = Color.Transparent;
+            lblPrefixTotal.Location = new Point(544, 466);
+            lblPrefixTotal.Name = "lblPrefixTotal";
+            lblPrefixTotal.Size = new Size(21, 15);
+            lblPrefixTotal.TabIndex = 16;
+            lblPrefixTotal.Text = "S/ ";
+            // 
+            // lblTotal
+            // 
+            lblTotal.AutoSize = true;
+            lblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotal.Location = new Point(561, 462);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(41, 21);
+            lblTotal.TabIndex = 15;
+            lblTotal.Text = "0.00";
+            // 
+            // lblTotalView
+            // 
+            lblTotalView.AutoSize = true;
+            lblTotalView.Location = new Point(565, 446);
+            lblTotalView.Name = "lblTotalView";
+            lblTotalView.Size = new Size(35, 15);
+            lblTotalView.TabIndex = 14;
+            lblTotalView.Text = "Total:";
+            lblTotalView.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(719, 527);
+            ClientSize = new Size(719, 554);
+            Controls.Add(lblPrefixTotal);
+            Controls.Add(lblTotal);
+            Controls.Add(lblTotalView);
             Controls.Add(btnLoad);
             Controls.Add(btnSave);
             Controls.Add(btnNew);
@@ -241,6 +277,7 @@
             grpInsert.ResumeLayout(false);
             grpInsert.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -256,11 +293,14 @@
         private TextBox txtPrecio;
         private GroupBox grpInsert;
         private Label lblSubtotal;
-        private Label lblTotalView;
+        private Label lblSubtotalView;
         private Button btnAdd;
-        private Label label1;
+        private Label lblPrefixSubtotal;
         private Button btnNew;
         private Button btnSave;
         private Button btnLoad;
+        private Label lblPrefixTotal;
+        private Label lblTotal;
+        private Label lblTotalView;
     }
 }

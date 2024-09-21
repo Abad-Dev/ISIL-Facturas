@@ -6,6 +6,7 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
+        public const string DECIMALS = "N2";
         public List<Producto> productos = new List<Producto> { };
         public bool textChangedByCode = false;
         public Form1()
@@ -20,13 +21,14 @@ namespace WinFormsApp1
             foreach (var producto in productos)
             {
                 grdProductos.Rows.Add(
-                    producto.CodProducto, 
-                    producto.Descripcion, 
-                    producto.Cantidad, 
-                    producto.PrecioUnitario, 
-                    (producto.Cantidad * producto.PrecioUnitario).ToString("N2")
+                    producto.CodProducto,
+                    producto.Descripcion,
+                    producto.Cantidad,
+                    producto.PrecioUnitario,
+                    (producto.Cantidad * producto.PrecioUnitario).ToString(DECIMALS)
                 );
             }
+            CalculateTotal();
         }
 
         private void FillColumnsGrid()
@@ -36,6 +38,17 @@ namespace WinFormsApp1
             grdProductos.Columns.Add("Cantidad", "Cantidad");
             grdProductos.Columns.Add("PrecioUnitario", "Precio Unitario");
             grdProductos.Columns.Add("Subtotal", "Subtotal");
+        }
+
+        private void CalculateTotal()
+        {
+            double total = 0;
+            foreach (var producto in productos)
+            {
+                total += (producto.Cantidad * producto.PrecioUnitario);
+            }
+
+            lblTotal.Text = total.ToString(DECIMALS);
         }
 
         private void CalculateSubtotal()
@@ -50,7 +63,7 @@ namespace WinFormsApp1
                 return;
             }
 
-            lblSubtotal.Text = (currentQty * currentPrice).ToString("N2");
+            lblSubtotal.Text = (currentQty * currentPrice).ToString(DECIMALS);
         }
 
         private void EmptyFields()
@@ -61,7 +74,7 @@ namespace WinFormsApp1
             txtDesc.Text = string.Empty;
             numQty.Value = 0;
             txtPrecio.Text = "0";
-            lblSubtotal.Text = "0.00";
+            lblSubtotal.Text = 0.ToString(DECIMALS);
 
             textChangedByCode = false;
         }
