@@ -90,6 +90,14 @@ namespace WinFormsApp1
                 MessageBox.Show("El código de producto es obligatorio.");
                 return false;
             }
+            foreach (var producto in productos)
+            {
+                if (txtCodProd.Text == producto.CodProducto)
+                {
+                    MessageBox.Show("El código de producto no se puede repetir. Código existente: " + producto.CodProducto);
+                    return false;
+                }
+            }
             if (string.IsNullOrEmpty(txtDesc.Text))
             {
                 MessageBox.Show("La descripción del producto no puede ser vacía.");
