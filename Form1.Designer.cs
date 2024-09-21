@@ -228,6 +228,7 @@
             btnLoad.TabIndex = 13;
             btnLoad.Text = "Cargar Factura";
             btnLoad.UseVisualStyleBackColor = true;
+            btnLoad.Click += btnLoad_Click;
             // 
             // lblPrefixTotal
             // 

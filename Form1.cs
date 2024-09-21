@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Xml;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Text.Json;
 
 namespace WinFormsApp1
 {
@@ -117,8 +119,25 @@ namespace WinFormsApp1
 
         private void SaveChanges()
         {
+            string fechaHora = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string carpeta = @"C:\facturas-isil";
+            string rutaArchivo = Path.Combine(carpeta, $"factura-{fechaHora}.txt");
 
-            MessageBox.Show("Los cambios fueron guardados en C:/factura.txt");
+            try
+            {
+                if (!Directory.Exists(carpeta))
+                {
+                    Directory.CreateDirectory(carpeta);
+                }
+
+                string productosJson = JsonSerializer.Serialize(productos);
+                File.WriteAllText(rutaArchivo, productosJson);
+                MessageBox.Show($"Datos guardados correctamente en: {rutaArchivo}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar los datos: {ex.Message}");
+            }
         }
 
         private void txtPrecio_TextChanged(object sender, EventArgs e)
@@ -165,10 +184,11 @@ namespace WinFormsApp1
         {
             if (productos.Count == 0) { return; }
 
-            if (changesSaved) { 
+            if (changesSaved)
+            {
                 ClearScreen();
-                changesSaved = false; 
-                return; 
+                changesSaved = false;
+                return;
             }
 
             DialogResult resultado = MessageBox.Show(
@@ -187,10 +207,35 @@ namespace WinFormsApp1
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (productos.Count == 0) { return; }
-
             SaveChanges();
             changesSaved = true;
         }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = @"C:\facturas-isil";
+                openFileDialog.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
+                openFileDialog.Title = "Seleccionar archivo de productos";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string rutaArchivo = openFileDialog.FileName;
+                        string content = File.ReadAllText(rutaArchivo);
+                        productos = JsonSerializer.Deserialize<List<Producto>>(content);
+                        FillGridView();
+                    }
+                    catch (JsonException ex)
+                    {
+                        MessageBox.Show($"El contenido del archivo está dañado o es inválido: {ex.Message}");
+                        return;
+                    }
+                }
+            }
+        }
+
     }
 }
